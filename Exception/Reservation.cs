@@ -1,4 +1,5 @@
 ﻿using System;
+using Exception.Exception;
 
 namespace Exception
 {
@@ -9,8 +10,16 @@ namespace Exception
         public DateTime CheckOut { get; set; }
         public TimeSpan Duracao { get; set; }
 
+        public Reservation()
+        {
+
+        }
+
         public Reservation(int roomNumber, DateTime checkIn, DateTime checkOut)
         {
+            if (checkOut <= checkIn)
+                throw new DomainException("Erro na reserva. Data de saída deve ser maior à data de entrada!!!");
+
             this.RoomNumber = roomNumber;
             this.CheckIn = checkIn;
             this.CheckOut = checkOut;
@@ -18,8 +27,8 @@ namespace Exception
 
         public int Duration()
         {
-            Duracao = CheckOut.Subtract(CheckIn);
-            return (int)Duracao.TotalDays;
+            TimeSpan duracao = CheckOut.Subtract(CheckIn);
+            return (int)duracao.TotalDays;
         }
 
         public override string ToString()
@@ -35,9 +44,18 @@ namespace Exception
                 + " nights";
         }
 
-        //public void UpdateDate(DateTime CeckIn, DateTime CheckOut)
-        //{
+        public void UpdateDate(DateTime checkIn, DateTime checkOut)
+        {
+            DateTime now = DateTime.Now;
 
-        //}
+            if (now > checkIn || now > checkOut)
+                throw new DomainException("Erro na Reserva!! As datas devem ser posteriores à data atual.");
+
+            if (checkOut <= checkIn)
+                throw new DomainException("Erro na reserva. Data de saída deve ser maior à data de entrada!!!");
+
+            CheckIn = checkIn;
+            CheckOut = checkOut;
+        }
     }
 }
