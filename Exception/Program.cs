@@ -10,7 +10,6 @@ namespace Exception
         {
             try
             {
-
                 Console.WriteLine("Insira o número do quarto");
                 int quartoNum = int.Parse(Console.ReadLine());
                 Console.WriteLine("");
