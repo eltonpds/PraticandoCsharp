@@ -18,7 +18,7 @@ namespace PraticandoLogica
             Preco = preco;
         }
 
-        public Produto(string nome, double preco, int quantidade) : this(nome, preco)
+        public Produto(string nome, double preco, int quantidade) : this(nome, preco) //reaproveita o construtor com 2 parâmetros
         {
             Quantidade = quantidade;
         }
